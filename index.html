@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite Sheet Studio</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+
+    <h1>Sprite Sheet Studio</h1>
+
+    <div class="main-layout">
+        
+        <!-- Panel Izquierdo: Configuración -->
+        <div class="panel">
+            <div class="section-title">1. Archivo e Imagen</div>
+            <div>
+                <label for="file-input">Cargar Sprite Sheet:</label>
+                <input type="file" id="file-input" accept="image/*">
+            </div>
+
+            <div class="meta-box">
+                <div class="meta-line">Dimensiones Reales: <span id="meta-resolution">0 x 0 px</span></div>
+                <div class="meta-line">Estructura Sugerida: <strong id="meta-suggest">Carga una imagen para calcular...</strong></div>
+            </div>
+
+            <div class="section-title">2. Estructura de la Grilla</div>
+            <div class="grid-2col">
+                <div>
+                    <label for="frame-width">Ancho Frame (px):</label>
+                    <input type="number" id="frame-width" value="0" min="0">
+                </div>
+                <div>
+                    <label for="frame-height">Alto Frame (px):</label>
+                    <input type="number" id="frame-height" value="0" min="0">
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div>
+                    <label for="sheet-layout">Distribución de Animación:</label>
+                    <select id="sheet-layout">
+                        <option value="horizontal">Horizontal (Línea de Frames)</option>
+                        <option value="vertical">Vertical (Columna de Frames)</option>
+                        <option value="custom">Matriz Personalizada (Secuencia X,Y)</option>
+                    </select>
+                </div>
+                <div id="container-total-frames">
+                    <label for="total-frames">Cant. de Casillas (Frames):</label>
+                    <input type="number" id="total-frames" value="0" min="0">
+                </div>
+            </div>
+
+            <div id="container-custom-list" class="hidden">
+                <label for="custom-frames-input">Secuencia X,Y (ej: 0,0 1,0 2,0):</label>
+                <input type="text" id="custom-frames-input" value="" placeholder="0,0 1,0 2,1">
+            </div>
+
+            <div class="section-title">3. Línea de Tiempo e Índices de Origen</div>
+            <div class="grid-2col">
+                <div id="container-start-x">
+                    <label for="start-column-x">Columna Inicio (X):</label>
+                    <input type="number" id="start-column-x" value="0" min="0">
+                </div>
+                <div id="container-start-y">
+                    <label for="start-row-y">Fila Inicio (Y):</label>
+                    <input type="number" id="start-row-y" value="0" min="0">
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div>
+                    <label for="speed-input">Velocidad (ms por frame):</label>
+                    <input type="number" id="speed-input" value="130" min="0" step="10">
+                </div>
+                <div>
+                    <label for="zoom-scale">Zoom Visualización:</label>
+                    <select id="zoom-scale">
+                        <option value="1">1x (Original)</option>
+                        <option value="2" selected>2x</option>
+                        <option value="3">3x</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="flip-horizontal"> ↔️ Voltear horizontalmente (Efecto Espejo)
+                </label>
+            </div>
+
+            <div class="section-title">4. Herramientas y Exportación</div>
+            <div class="export-actions">
+                <button class="btn" id="btn-copy-css">📋 Copiar CSS</button>
+                <button class="btn btn-blue" id="btn-copy-json">⚙️ Copiar JSON</button>
+            </div>
+            <div id="toast-notification"></div>
+        </div>
+
+        <!-- Columna Derecha: Vista Previa e Inspección -->
+        <div class="right-column">
+            
+            <div class="viewer-panel">
+                <div class="viewer-container">
+                    <div class="zoom-wrapper" id="zoom-wrapper">
+                        <div id="sprite-viewer"></div>
+                    </div>
+                </div>
+
+                <div class="playback-controls">
+                    <button class="btn btn-gray" id="btn-prev" title="Frame Anterior">⏮️</button>
+                    <button class="btn btn-play-state" id="btn-toggle-play">▶️ Play</button>
+                    <button class="btn btn-gray" id="btn-next" title="Siguiente Frame">⏭️</button>
+                </div>
+
+                <div class="info" id="debug-info">Inicializando sin datos...</div>
+            </div>
+
+            <div class="preview-sheet-panel">
+                <div class="section-title" style="margin-top:0;">5. Selección Interactiva en la Hoja</div>
+                <div class="instruction-tag">💡 Haz clic y arrastra el mouse sobre la imagen para medir el sprite.</div>
+                
+                <div class="sheet-scroll-container" id="sheet-scroll-container">
+                    <div class="sheet-wrapper" id="sheet-wrapper">
+                        <div id="grid-overlay-box"></div>
+                        <div id="drag-selection-box"></div>
+                        <img id="full-sheet-img" alt="Sube una imagen para inspeccionar la grilla completa">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Módulos de JavaScript -->
+    <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
